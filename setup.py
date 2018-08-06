@@ -17,7 +17,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='logthis',
-    version='1.0.0',
+    version='1.0.1',
     description='a singleton, two-level, colorful, thread-safe, knob-free, logging library for in-house software',
     long_description=long_description,
     url='https://github.com/Parquery/logthis',
