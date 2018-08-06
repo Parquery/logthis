@@ -20,7 +20,7 @@ setup(
     version='1.0.0',
     description='a singleton, two-level, colorful, thread-safe, knob-free, logging library for in-house software',
     long_description=long_description,
-    url='https://bitbucket.org/parqueryopen/logthis',
+    url='https://github.com/Parquery/logthis',
     author='Marko Ristin',
     author_email='marko.ristin@parquery.com',
     license='MIT License',
