@@ -37,4 +37,5 @@ setup(
         'dev': ['mypy==0.600', 'pylint==1.8.4', 'yapf==0.20.2', 'tox>=3.0.0', 'temppathlib==1.0.1'],
         'test': ['tox==3.0.0', 'temppathlib==1.0.1']
     },
-    py_modules=['logthis'])
+    py_modules=['logthis'],
+    package_data={"logthis": ["py.typed"]})
