@@ -45,7 +45,7 @@ Usage
 
 The output is:
 
-.. image:: https://bitbucket.org/parqueryopen/logthis/raw/9961ff04c428892df09f04a396b94a7f4f9dc669/screenshot.png
+.. image:: https://media.githubusercontent.com/media/Parquery/logthis/master/screenshot.png
 
 Installation
 ============
