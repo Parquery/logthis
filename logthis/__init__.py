@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Provide singleton, two-level, colorful, thread-safe, knob-free, logging for in-house software.
-
-"""
+"""Provide singleton, two-level, colorful, thread-safe, knob-free, logging for in-house software."""
 import datetime
 import inspect
 import os
@@ -14,9 +11,14 @@ from typing import Tuple  # pylint: disable=unused-import
 class State:
     """Represent the global logging state."""
 
-    lock = threading.Lock()
-    stdout = sys.stdout
-    stderr = sys.stderr
+    def __init__(self) -> None:
+        """Initialize with the default values."""
+        self.lock = threading.Lock()
+        self.stdout = sys.stdout
+        self.stderr = sys.stderr
+
+
+_GLOBAL_STATE = State()
 
 
 class Colors:
@@ -82,26 +84,28 @@ def filename_line(skip: int = 2) -> Tuple[str, int]:
     return filename, parentframe.f_lineno
 
 
-def say(message: str) -> None:
+def say(message: str, state: State = _GLOBAL_STATE, utcnow: datetime.datetime = datetime.datetime.utcnow()) -> None:
     """
     Print a formatted log message to STDOUT and flush.
 
     :param message: to be displayed
-
+    :param state: state object to use; the default is the singleton
+    :param utcnow: current timestamp
     """
-    with State.lock:
+    with state.lock:
         filename, line = filename_line()
-        State.stdout.write(say_as_text(filename=filename, line=line, message=message))
-        State.stdout.flush()
+        state.stdout.write(say_as_text(filename=filename, line=line, message=message, utcnow=utcnow))
+        state.stdout.flush()
 
 
-def say_as_text(filename: str, line: int, message: str) -> str:
+def say_as_text(filename: str, line: int, message: str, utcnow: datetime.datetime = datetime.datetime.utcnow()) -> str:
     """
     Generate 'say' message as a string.
 
     :param filename: path to the script, usually you want to pass __file__
     :param line: line number in the script, usually you want to pass inspect.currentframe().f_lineno
     :param message: to be displayed
+    :param utcnow: current timestamp
     :return: whole formatted message which the 'say' function will display
 
     """
@@ -109,32 +113,35 @@ def say_as_text(filename: str, line: int, message: str) -> str:
         blue=Colors.kForeBlue,
         fname=filename,
         line=line,
-        dt=datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%SZ"),
+        dt=utcnow.strftime("%Y-%m-%d %H:%M:%SZ"),
         msg=message,
         endcolor=Colors.kConsoleDefault)
 
 
-def err(message: str) -> None:
+def err(message: str, state: State = _GLOBAL_STATE, utcnow: datetime.datetime = datetime.datetime.utcnow()) -> None:
     """
     Print a formatted log message to STDERR and flush.
 
     :param message: to be displayed
+    :param state: state object to use; default is the singleton
+    :param utcnow: current timestamp
 
     """
     filename, line = filename_line()
 
-    with State.lock:
-        State.stderr.write(err_as_text(filename=filename, line=line, message=message))
-        State.stderr.flush()
+    with state.lock:
+        state.stderr.write(err_as_text(filename=filename, line=line, message=message, utcnow=utcnow))
+        state.stderr.flush()
 
 
-def err_as_text(filename: str, line: int, message: str) -> str:
+def err_as_text(filename: str, line: int, message: str, utcnow: datetime.datetime = datetime.datetime.utcnow()) -> str:
     """
     Generate 'err' message as a string.
 
     :param filename: path to the script, usually you want to pass __file__
     :param line: line number in the script, usually you want to pass inspect.currentframe().f_lineno
     :param message: to be displayed
+    :param utcnow: current timestamp
     :return: whole formatted message which the 'err' function will display
 
     """
@@ -142,6 +149,6 @@ def err_as_text(filename: str, line: int, message: str) -> str:
         red=Colors.kForeRed,
         fname=filename,
         line=line,
-        dt=datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%SZ"),
+        dt=utcnow.strftime("%Y-%m-%d %H:%M:%SZ"),
         msg=message,
         endcolor=Colors.kConsoleDefault)

@@ -1,6 +1,22 @@
 logthis
 =======
 
+.. image:: https://github.com/Parquery/logthis/workflows/Check-push/badge.svg
+    :target: https://github.com/Parquery/logthis/actions?query=workflow%3ACheck-push
+    :alt: Check status
+
+.. image:: https://coveralls.io/repos/github/Parquery/logthis/badge.svg?branch=master
+    :target: https://coveralls.io/github/Parquery/logthis
+    :alt: Test coverage
+
+.. image:: https://badge.fury.io/py/logthis.svg
+    :target: https://pypi.org/project/logthis/
+    :alt: PyPI - version
+
+.. image:: https://img.shields.io/pypi/pyversions/logthis.svg
+    :target: https://pypi.org/project/logthis/
+    :alt: PyPI - Python Version
+
 logthis is a singleton, two-level, colorful, thread-safe, knob-free, logging library for in-house software.
 
 * **singleton**: There is no object to create. There are only two logging functions, ``say()`` and ``err()``.

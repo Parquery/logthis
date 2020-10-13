@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-Make an example of how to use logthis.
-"""
+"""Make an example of how to use logthis."""
 import sys
 
 import logthis
