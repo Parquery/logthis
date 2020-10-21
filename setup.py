@@ -25,17 +25,32 @@ setup(
     author_email='marko.ristin@parquery.com',
     license='MIT License',
     classifiers=[
+        # yapf: disable
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8'
+        # yapf: enable
     ],
     keywords='logging log colorful color simple plain straightforward',
     packages=find_packages(exclude=['tests']),
     install_requires=[],
     extras_require={
-        'dev': ['mypy==0.600', 'pylint==1.8.4', 'yapf==0.20.2', 'tox>=3.0.0', 'temppathlib==1.0.1'],
-        'test': ['tox==3.0.0', 'temppathlib==1.0.1']
+        'dev': [
+            # yapf: disable
+            'mypy==0.790',
+            'pylint==2.6.0',
+            'yapf==0.20.2',
+            'coverage>=5,<6',
+            'pydocstyle>=5,<6',
+            'tox>=3.0.0,<4',
+            'temppathlib>=1.0.3,<2',
+            'twine'
+            # yapf: enable
+        ]
     },
     py_modules=['logthis'],
     package_data={"logthis": ["py.typed"]})
